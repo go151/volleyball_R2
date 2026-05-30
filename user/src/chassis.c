@@ -11,9 +11,9 @@
 #endif
 #define CHASSIS_STEER_GEAR_RATIO  7.0f   // 电机:轮子减速比
 // 轮距参数
-#define CHASSIS_HALF_LENGTH  0.50f  // L: 从前到后中心距离的一半
-#define CHASSIS_HALF_WIDTH   0.50f  // W: 从左到右中心距离的一半
-#define ABS(x)  ((x) >= 0? (x) : -(x))//绝对值函数
+#define CHASSIS_HALF_LENGTH  0.50f  // L: 从前到后中心距离的一�?
+#define CHASSIS_HALF_WIDTH   0.50f  // W: 从左到右中心距离的一�?
+#define ABS(x)  ((x) >= 0? (x) : -(x))//绝对值函�?
 Chassis_Module Chassis;
 Chassis_Module ChassisD;
 DJI_MotorModule chassis_motor1;  // （左前）
@@ -64,7 +64,7 @@ int n=0;
 
 /*******************************************************************************************
   * @Func		float Motor_PID_Calculate(DJI_MotorModule *obj, float input)
-  * @Brief      解算usb传输的数据
+  * @Brief      解算usb传输的数�?
   * @Retval		None
   * @Date     2026/4/22//
  *******************************************************************************************/
@@ -92,12 +92,12 @@ void usbdata_get()
 }
 
 void Chassis_Homing_Routine(void)
-{
+{   
 	float homing_rpm = 5000.0f;	//寻零速度
 	if(is_homed [0]&&is_homed [1]&&is_homed [2]&&is_homed [3])
 //		if(is_homed [2])
 	{
-		chassis_is_ready = true;  //检查光电门是否均被触发后退出
+		chassis_is_ready = true;  //检查光电门是否均被触发后退�?
     DJIset_motor_data(&hfdcan3, 0x200, 0, 0, 0, 0);
 		return;
 	}
@@ -153,26 +153,26 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
     chassisD->param.Vw = Vw*k;
 
 
-    // ==================== 2. 运动学解算（轮子线速度 + 目标角度）====================
+    // ==================== 2. 运动学解算（轮子线速度 + 目标角度�?====================
     const float wheel_y[4] = { CHASSIS_HALF_LENGTH,  CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH };
     const float wheel_x[4] = { CHASSIS_HALF_WIDTH, - CHASSIS_HALF_WIDTH, -CHASSIS_HALF_WIDTH,  CHASSIS_HALF_WIDTH };
 //    const float wheel_y[4] = { CHASSIS_HALF_LENGTH,  CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH };
-//    const float wheel_x[4] = { CHASSIS_HALF_WIDTH, - CHASSIS_HALF_WIDTH, -CHASSIS_HALF_WIDTH,  CHASSIS_HALF_WIDTH };若长宽改变，切换这两行
-    // 减速比：电机转 N 圈，轮子转 1 圈（电机角度 = 轮子角度 * GEAR_RATIO）
-    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修改
+//    const float wheel_x[4] = { CHASSIS_HALF_WIDTH, - CHASSIS_HALF_WIDTH, -CHASSIS_HALF_WIDTH,  CHASSIS_HALF_WIDTH };若长宽改变，切换这两�?
+    // 减速比：电机转 N 圈，轮子�? 1 圈（电机角度 = 轮子角度 * GEAR_RATIO�?
+    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修�?
     
     for (int i = 0; i < 4; i++)
     {
-        // 轮心速度分量（底盘坐标系）
+        // 轮心速度分量（底盘坐标系�?
         float vx_wheel = chassis->param.Vx - chassis->param.Vw * wheel_y[i];
         float vy_wheel = chassis->param.Vy + chassis->param.Vw * wheel_x[i];
         
-        // 原始的驱动轮目标线速度 和 舵轮目标角度 
+        // 原始的驱动轮目标线速度 �? 舵轮目标角度 
          target_speed[i] = sqrtf(vx_wheel * vx_wheel + vy_wheel * vy_wheel);
-//         target_angle_rad[i] = -atan2f(vx_wheel, vy_wheel);若长宽改变，这一行也要变；
+//         target_angle_rad[i] = -atan2f(vx_wheel, vy_wheel);若长宽改变，这一行也要变�?
          target_angle_rad[i] = atan2f(vx_wheel, vy_wheel);
 			if(target_angle_rad[i]==-M_PI) target_angle_rad[i]=M_PI;
-        // 获取当前 2006 转向电机的真实累计脉冲 
+        // 获取当前 2006 转向电机的真实累计脉�? 
         float motor_total_ecd = 0.0f;
         switch (i) {
             case 0: motor_total_ecd = chassis_motor1D.total_angle; 
@@ -190,7 +190,7 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
         }
         
         // 将电机的累计脉冲数，逆向换算为当前轮子的真实弧度
-        // 编码器一圈8192，除以减速比 GEAR_RATIO 得到轮子真实的累计弧度
+        // 编码器一�?8192，除以减速比 GEAR_RATIO 得到轮子真实的累计弧�?
 				 while(current_angle_rad[i]>2*M_PI)  current_angle_rad[i]=current_angle_rad[i]-2*M_PI;
 				 while(current_angle_rad[i]<-2*M_PI) current_angle_rad[i]=current_angle_rad[i]+2*M_PI;
          
@@ -234,7 +234,7 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
 //				
 //         while(target_angle_rad[i]>M_PI) target_angle_rad[i]=target_angle_rad[i]-2*M_PI;
 //				 while(target_angle_rad[i]<-M_PI) target_angle_rad[i]=target_angle_rad[i]+2*M_PI;				
-//        /* ==================== 优劣弧优化 ==================== */
+//        /* ==================== 优劣弧优�? ==================== */
 //        
 //        // 防抽搐优化：如果目标速度极小，保持当前角度不变，防止轮子突然回正
         if (target_speed [i]< 0.05f) {
@@ -259,11 +259,11 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
 				
 				
 /**************************优劣弧长逻辑*******************************/
-                 // 计算目标角度与当前角度的初始差值
+                 // 计算目标角度与当前角度的初始差�?
 				 angle_diff[i] = target_angle_rad[i] - current_angle_rad[i];
 //         if(angle_diff[i]<=3.142&&angle_diff[i]>=3.141)    angle_diff[i]=0; 
 //         if(angle_diff[i]>=-3.142&&angle_diff[i]<=-3.141)    angle_diff[i]=0;
-        // 将角度差强制限制在 [-PI, PI] 之间
+        // 将角度差强制限制�? [-PI, PI] 之间
         while (angle_diff[i] >= M_PI)  angle_diff[i] -= 2.0f * M_PI;
         while (angle_diff[i] <=-M_PI) angle_diff[i] += 2.0f * M_PI;
 
@@ -271,24 +271,24 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
         if (angle_diff [i]> M_PI / 2.0f) 
         {                                        
 					  target_angle_rad_change[i] = target_angle_rad[i]-M_PI;                                                                                                                                                                     // 目标角度减去 180 度，转向反面
-            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
         } 
         else if (angle_diff [i]< -M_PI / 2.0f) 
         {
             target_angle_rad_change[i]	 =target_angle_rad[i]+ M_PI;         // 目标角度加上 180 度，转向反面
-            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
         }else{
 					target_angle_rad_change[i]=target_angle_rad[i];
 				}
         //将优化后的速度赋值给驱动轮结构体
         chassis->param.wheel_out[i] = target_speed[i];
 
-        //将优化后的轮子目标角度转换为电机侧累计角度
+        //将优化后的轮子目标角度转换为电机侧累计角�?
         chassisD->param.wheel_out[i] = target_angle_rad_change[i] * (8192.0f / (2.0f * M_PI)) * GEAR_RATIO;
     }
 		
-    // ==================== 3. 3508 驱动轮：线速度 -> 目标转速 -> 速度环 ====================
-    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修改
+    // ==================== 3. 3508 驱动轮：线速度 -> 目标转�? -> 速度�? ====================
+    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修�?
     for (int i = 0; i < 4; i++)
     {
         float target_rpm = (chassis->param.wheel_out[i] / (2.0f * M_PI * wheel_radius)) * 60.0f;
@@ -310,11 +310,11 @@ if(RCctrl.CH1<=1100&&RCctrl.CH1>=1200) Vx=0;
 
 void Chassis_Stop(Chassis_Module *chassis)
 {
-    // 将 3508 驱动轮目标速度设为0
+    // �? 3508 驱动轮目标速度设为0
     for(int i = 0; i < 4; i++) {
         chassis->param.wheel_out[i] = 0.f;
     }
-    // 2006 转向轮保持当前角度，不强制归零
+    // 2006 转向轮保持当前角度，不强制归�?
 }
 
 void runbabyrun()
@@ -333,7 +333,7 @@ return angle;
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    //1号左前 =================
+    //1号左�? =================
     if(GPIO_Pin == GPIO_PIN_0) 
     {
         if(!is_homed[0]) {
@@ -344,7 +344,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             is_homed[0] = true;            
         }
     }
-    //2号右前 =================
+    //2号右�? =================
     else if(GPIO_Pin == GPIO_PIN_2) 
     {
         if(!is_homed[1]) {
@@ -355,7 +355,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             is_homed[1] = true;
         }
     }
-    // 3号左后 =================
+    // 3号左�? =================
     else if(GPIO_Pin == GPIO_PIN_13)
     {
         if(!is_homed[2]) {
@@ -366,7 +366,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
             is_homed[2] = true;
         }
     }
-    //4号右后 =================
+    //4号右�? =================
     else if(GPIO_Pin == GPIO_PIN_9)
     {
         if(!is_homed[3]) {
@@ -384,7 +384,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 //    // ==================== 1. 获取控制指令（遥控器或调试值）====================
 //    // 调试阶段使用固定值，实际使用时取消注释遥控器部分
 
-////到时候把操控换成右边的遥杆，通道和通道最大值最小值改一下就行，还有现在的34通道最大值最小值我忘了，这个是凭印象给的
+////到时候把操控换成右边的遥杆，通道和通道最大值最小值改一下就行，还有现在�?34通道最大值最小值我忘了，这个是凭印象给�?
 //	float k=MYdata_convert(RCctrl.CH3,260,1750,0,10,0.05);
 //        Vx=MYdata_convert(RCctrl.CH1,284,1750,-10,10,1);
 //        Vy=-MYdata_convert(RCctrl.CH2,275,1775,-10,10,1);
@@ -403,28 +403,28 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 //    chassisD->param.Vw = Vw*k;
 
 
-//    // ==================== 2. 运动学解算（轮子线速度 + 目标角度）====================
+//    // ==================== 2. 运动学解算（轮子线速度 + 目标角度�?====================
 //    const float wheel_y[4] = { CHASSIS_HALF_LENGTH,  CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH };
 //    const float wheel_x[4] = { CHASSIS_HALF_WIDTH, - CHASSIS_HALF_WIDTH, -CHASSIS_HALF_WIDTH,  CHASSIS_HALF_WIDTH };
 
-//    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修改
+//    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修�?
 //    
 //    for (int i = 0; i < 4; i++)
 //    {
-//        // 轮心速度分量（底盘坐标系）
+//        // 轮心速度分量（底盘坐标系�?
 //        float vx_wheel = chassis->param.Vx - chassis->param.Vw * wheel_y[i];
 //        float vy_wheel = chassis->param.Vy + chassis->param.Vw * wheel_x[i];
 //        
-//        // 原始的驱动轮目标线速度 和 舵轮目标角度 
+//        // 原始的驱动轮目标线速度 �? 舵轮目标角度 
 //         target_speed[i] = sqrtf(vx_wheel * vx_wheel + vy_wheel * vy_wheel);
-////         target_angle_rad[i] = -atan2f(vx_wheel, vy_wheel);若长宽改变，这一行也要变；
+////         target_angle_rad[i] = -atan2f(vx_wheel, vy_wheel);若长宽改变，这一行也要变�?
 //         target_angle_rad[i] = atan2f(vx_wheel, vy_wheel);
-//        // 获取当前 2006 转向电机的真实累计脉冲 
+//        // 获取当前 2006 转向电机的真实累计脉�? 
 //        float motor_total_ecd = 0.0f;
 
 //        
 //        // 将电机的累计脉冲数，逆向换算为当前轮子的真实弧度
-//        // 编码器一圈8192，除以减速比 GEAR_RATIO 得到轮子真实的累计弧度
+//        // 编码器一�?8192，除以减速比 GEAR_RATIO 得到轮子真实的累计弧�?
 //				
 //         
 //				if(target_angle_rad[i]==M_PI) target_angle_rad[i]=-M_PI;
@@ -469,7 +469,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 //        }
 //				
 //				
-////        /* ==================== 优劣弧优化 ==================== */
+////        /* ==================== 优劣弧优�? ==================== */
 ////        
 ////        // 防抽搐优化：如果目标速度极小，保持当前角度不变，防止轮子突然回正
 //        if (target_speed [i]< 0.05f) {
@@ -480,11 +480,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 
 ///**************************优劣弧长逻辑*******************************/
-//                 // 计算目标角度与当前角度的初始差值
+//                 // 计算目标角度与当前角度的初始差�?
 //				 angle_diff[i] = target_angle_rad[i] - current_angle_rad[i];
 //         if(angle_diff[i]<=3.1416&&angle_diff[i]>=3.1415)    angle_diff[i]=0; 
 //         if(angle_diff[i]>=-3.1416&&angle_diff[i]<=-3.1415)    angle_diff[i]=0; 				
-//        // 将角度差强制限制在 [-PI, PI] 之间
+//        // 将角度差强制限制�? [-PI, PI] 之间
 //        while (angle_diff[i] > M_PI)  angle_diff[i] -= 2.0f * M_PI;
 //				
 //        while (angle_diff[i] < -M_PI) angle_diff[i] += 2.0f * M_PI;
@@ -493,22 +493,22 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 //        if (angle_diff [i]> M_PI / 2.0f) 
 //        {                                        
 //					  target_angle_rad[i] -= M_PI;         // 目标角度减去 180 度，转向反面
-//            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+//            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
 //        } 
 //        else if (angle_diff [i]< -M_PI / 2.0f) 
 //        {
 //            target_angle_rad[i]	 += M_PI;         // 目标角度加上 180 度，转向反面
-//            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+//            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
 //        }
 //        //将优化后的速度赋值给驱动轮结构体
 //        chassis->param.wheel_out[i] = target_speed[i];
 
-//        //将优化后的轮子目标角度转换为电机侧累计角度
+//        //将优化后的轮子目标角度转换为电机侧累计角�?
 //        chassisD->param.wheel_out[i] = target_angle_rad[i] * (8192.0f / (2.0f * M_PI)) * GEAR_RATIO;
 //    }
 //		
-//    // ==================== 3. 3508 驱动轮：线速度 -> 目标转速 -> 速度环 ====================
-//    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修改
+//    // ==================== 3. 3508 驱动轮：线速度 -> 目标转�? -> 速度�? ====================
+//    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修�?
 //    for (int i = 0; i < 4; i++)
 //    {
 //        float target_rpm = (chassis->param.wheel_out[i] / (2.0f * M_PI * wheel_radius)) * 60.0f;
@@ -550,24 +550,24 @@ else {usbdata_get();
     chassisD->param.Vw = Vw*k;
 
 
-    // ==================== 2. 运动学解算（轮子线速度 + 目标角度）====================
+    // ==================== 2. 运动学解算（轮子线速度 + 目标角度�?====================
     const float wheel_x[4] = { CHASSIS_HALF_LENGTH,  CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH, -CHASSIS_HALF_LENGTH };
     const float wheel_y[4] = { CHASSIS_HALF_WIDTH,  -CHASSIS_HALF_WIDTH, -CHASSIS_HALF_WIDTH,  CHASSIS_HALF_WIDTH };
     
-    // 减速比：电机转 N 圈，轮子转 1 圈（电机角度 = 轮子角度 * GEAR_RATIO）
-    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修改
+    // 减速比：电机转 N 圈，轮子�? 1 圈（电机角度 = 轮子角度 * GEAR_RATIO�?
+    const float GEAR_RATIO = 144.0f;   // 根据实际机械比修�?
     
     for (int i = 0; i < 4; i++)
     {
-        // 轮心速度分量（底盘坐标系）
+        // 轮心速度分量（底盘坐标系�?
         float vx_wheel = chassis->param.Vx - chassis->param.Vw * wheel_y[i];
         float vy_wheel = chassis->param.Vy + chassis->param.Vw * wheel_x[i];
         
-        // 原始的驱动轮目标线速度 和 舵轮目标角度 
+        // 原始的驱动轮目标线速度 �? 舵轮目标角度 
          target_speed[i] = sqrtf(vx_wheel * vx_wheel + vy_wheel * vy_wheel);
          target_angle_rad[i] = atan2f(vy_wheel, vx_wheel);
         
-        // 获取当前 2006 转向电机的真实累计脉冲 
+        // 获取当前 2006 转向电机的真实累计脉�? 
         float motor_total_ecd = 0.0f;
         switch (i) {
             case 0:
@@ -590,10 +590,10 @@ else {usbdata_get();
        
 
 
-  // 计算目标角度与当前角度的初始差值
+  // 计算目标角度与当前角度的初始差�?
         float angle_diff = target_angle_rad[i] - current_angle_rad[i];
 
-        // 将角度差强制限制在 [-PI, PI] 之间
+        // 将角度差强制限制�? [-PI, PI] 之间
         while (angle_diff > M_PI)  angle_diff -= 2.0f * M_PI;
         while (angle_diff < -M_PI) angle_diff += 2.0f * M_PI;
 
@@ -601,12 +601,12 @@ else {usbdata_get();
         if (angle_diff > M_PI / 2.0f) 
         {
             angle_diff -= M_PI;         // 目标角度减去 180 度，转向反面
-            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
         } 
         else if (angle_diff < -M_PI / 2.0f) 
         {
             angle_diff += M_PI;         // 目标角度加上 180 度，转向反面
-            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得正
+            target_speed[i] = -target_speed[i];     // 驱动电机速度反转，负负得�?
         }
 
     float optimized_target_angle_rad = current_angle_rad[i] + angle_diff;
@@ -614,13 +614,13 @@ else {usbdata_get();
         //将优化后的速度赋值给驱动轮结构体
         chassis->param.wheel_out[i] = target_speed[i];
 
-        //将优化后的轮子目标角度转换为电机侧累计角度
+        //将优化后的轮子目标角度转换为电机侧累计角�?
         chassisD->param.wheel_out[i] = optimized_target_angle_rad * (8192.0f / (2.0f * M_PI)) * GEAR_RATIO;
 
     }
 		
-    // ==================== 3. 3508 驱动轮：线速度 -> 目标转速 -> 速度环 ====================
-    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修改
+    // ==================== 3. 3508 驱动轮：线速度 -> 目标转�? -> 速度�? ====================
+    float wheel_radius = 0.055f;   // 实际轮子半径（米），请根据实物修�?
     for (int i = 0; i < 4; i++)
     {
         float target_rpm = (chassis->param.wheel_out[i] / (2.0f * M_PI * wheel_radius)) * 60.0f;
