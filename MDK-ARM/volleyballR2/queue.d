@@ -1,0 +1,15 @@
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+volleyballr2\queue.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\stdlib.h
+volleyballr2\queue.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\string.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+volleyballr2\queue.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\stddef.h
+volleyballr2\queue.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\stdint.h
+volleyballr2\queue.o: ../Core/Inc/FreeRTOSConfig.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+volleyballr2\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h

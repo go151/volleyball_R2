@@ -1,0 +1,12 @@
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+volleyballr2\port.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\stddef.h
+volleyballr2\port.o: D:\software\keil5\ARM\ARMCOMPLIER506\Bin\..\include\stdint.h
+volleyballr2\port.o: ../Core/Inc/FreeRTOSConfig.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+volleyballr2\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

@@ -1,0 +1,83 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Lenovo,  , LIC=TIVNB-20VTG-MMU9I-T7J1R-EIBFB-Y55EB
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.38.0.0
+Toolchain Path:  D:\software\keil5\ARM\ARMCOMPLIER506\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      CMSIS_AGDI.dll V1.33.15.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+D:\test\volleyballR2\volleyballR2\MDK-ARM\volleyballR2.uvprojx
+Project File Date:  05/17/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\software\keil5\ARM\ARMCOMPLIER506\Bin'
+Build target 'volleyballR2'
+compiling up.c...
+../Drivers/CMSIS/Include/cachel1_armv7.h(188): warning:  #1041-D: alignment for an auto object may not be larger than 8
+      } locals
+../user/inc/up.h(16): warning:  #1295-D: Deprecated declaration DMenable - give arg types
+  void DMenable();
+../user/inc/up.h(17): warning:  #1295-D: Deprecated declaration DMdisable - give arg types
+  void DMdisable();
+../user/inc/up.h(18): warning:  #1295-D: Deprecated declaration Upbabyup - give arg types
+  void Upbabyup();
+../user/inc/up.h(19): warning:  #1295-D: Deprecated declaration Catch - give arg types
+  void Catch();
+..\user\src\up.c(83): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		 				DM4310_FOUR_out[0]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[0],tar)*2.5;
+..\user\src\up.c(84): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						DM4310_FOUR_out[1]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[1],tar)*2.5;
+..\user\src\up.c(85): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						DM4310_FOUR_out[2]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[2],tar)*2.5;
+..\user\src\up.c(98): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		 				DM4310_FOUR_out[0]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[0],-200)*0.8;
+..\user\src\up.c(99): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						DM4310_FOUR_out[1]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[1],-200)*0.8;
+..\user\src\up.c(100): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  						DM4310_FOUR_out[2]=Motor_PID_Calculate_FOUR(&DM4310_FOUR[2],-200)*0.8;
+..\user\src\up.c: 11 warnings, 0 errors
+linking...
+Program Size: Code=100840 RO-data=1108 RW-data=1112 ZI-data=34632  
+FromELF: creating hex file...
+"volleyballR2\volleyballR2.axf" - 0 Error(s), 11 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32H7xx_DFP.4.1.3.pack
+                Keil.STM32H7xx_DFP.4.1.3
+                STMicroelectronics STM32H7 Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_volleyballR2
+  D:/software/keil5/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:05
+</pre>
+</body>
+</html>
